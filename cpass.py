@@ -1,19 +1,14 @@
 from generator import Generator
+from etc import heading, ending
 from collections import OrderedDict
+from utils import text_file_writer
 
 master = []
 
-def appender(list):
-    for i in list:
+def appender(lists):
+    for i in lists:
         master.append(i)
     return master
-
-
-def text_file_writer(master):
-    with open(f'{first_name}.txt', 'w') as f:
-        for item in master:
-            f.write(f"{item}\n")
-
 
 def execution():
     f = Generator(first_name, special)
@@ -47,24 +42,7 @@ def execution():
             appender(k.result())
 
 
-print('''
-<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>
-<:>                                             <:>
-<:> ░█████╗░██████╗░░█████╗░░██████╗░██████╗    <:>
-<:> ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔════╝    <:>
-<:> ██║░░╚═╝██████╔╝███████║╚█████╗░╚█████╗░    <:>
-<:> ██║░░██╗██╔═══╝░██╔══██║░╚═══██╗░╚═══██╗    <:>
-<:> ╚█████╔╝██║░░░░░██║░░██║██████╔╝██████╔╝    <:>
-<:> ░╚════╝░╚═╝░░░░░╚═╝░░╚═╝╚═════╝░╚═════╝░    <:>
-<:>                                             <:>
-<:>   𝔠𝔬𝔪𝔪𝔬𝔫𝔩𝔶 𝔲𝔰𝔢𝔡 𝔭𝔞𝔰𝔰𝔴𝔬𝔯𝔡 𝔩𝔦𝔰𝔱 𝔤𝔢𝔫𝔢𝔯𝔞𝔱𝔬𝔯     <:>
-<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>:<:>
-
-[+] Insert information regarding the subject to create a list
-[+] Hit enter if you don't know the answer
-    ''')
-
-
+heading()
 first_name = input('> Firstname: ').lower()
 if first_name == '':
     while bool(first_name) != True:
@@ -86,11 +64,12 @@ else:
     birthdate = int(birthdate)
 
 if special == 'y':
-        special = True
+    special = True
 else:
     special = False
 
 execution()
+# Remove duplicates
 master = list(OrderedDict.fromkeys(master))
-text_file_writer(master)
-
+text_file_writer(first_name, master)
+ending(first_name)
