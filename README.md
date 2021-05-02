@@ -1,4 +1,4 @@
-# cpass
+# CPASS
 Commonly Used Password List Generator
 
 ## About
