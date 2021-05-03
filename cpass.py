@@ -1,45 +1,32 @@
 from generator import Generator
 from etc import heading, ending
 from collections import OrderedDict
-from utils import text_file_writer
+from utils import text_file_writer, appender
 
 master = []
 
-def appender(lists):
-    for i in lists:
-        master.append(i)
-    return master
-
 def execution():
     f = Generator(first_name, special)
-    appender(f.result())
+    appender(f.result(), master)
     if bool(last_name) == True:
-        l = Generator(last_name, special)
-        appender(l.result())
-        name = last_name+first_name
-        l2 = Generator(name, special)
-        appender(l2.result())
-        name = first_name+last_name
-        l3 = Generator(name, special)
-        appender(l3.result())
+        unprocessed_words = [last_name, first_name+last_name, last_name+first_name]
+        for item in unprocessed_words:
+            l = Generator(item, special)
+            appender(l.result(), master)
     if bool(nick_name) == True:
-        n = Generator(nick_name, special)
-        appender(n.result())
-        name = nick_name+first_name
-        n2 = Generator(name, special)
-        appender(n2.result())
-        name = first_name+nick_name
-        n3 = Generator(name, special)
-        appender(n3.result())
+        unprocessed_words = [nick_name, first_name+nick_name, nick_name+first_name]
+        for item in unprocessed_words:
+            n = Generator(item, special)
+            appender(n.result(), master)
     if birthdate != 0:
         words = [first_name, last_name, nick_name]
         for name in words:
             n = Generator(name, special)
-            appender(n.birthday(birthdate))
+            appender(n.birthday(birthdate), master)
     if bool(keywords) == True:
         for word in key:
             k = Generator(word, special)
-            appender(k.result())
+            appender(k.result(), master)
 
 
 heading()
